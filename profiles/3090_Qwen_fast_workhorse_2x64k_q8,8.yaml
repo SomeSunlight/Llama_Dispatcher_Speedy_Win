@@ -1,0 +1,50 @@
+name: "Qwen Workhorse"
+description: "32K All-GPU Speed zwei parallel arbeitende Agenten"
+# Für Beschreibung Parameter siehe hier: https://github.com/ggml-org/llama.cpp/blob/master/tools/cli/README.md
+defaults:
+  model: "qwen"   # → defaults/models/qwen.yaml
+  engine: "cuda"  # → instances/<name>/engines/cuda.yaml
+
+common:
+  m: "C:\\AI_Models\\LLM\\GGUF_Raw\\Qwen3.6-35B-A3B-Claude-4.7-Opus-Reasoning-Distilled-APEX-MTP-I-Compact.gguf"
+  c: 131072
+  ngl: 99
+  # Das folgende niemals mit mehr Threads als die CPU hat
+  threads: 16
+  # Die Speicherarchitektur MUSS global gelten:
+  cache-type-k: "q8_0"
+  cache-type-v: "q8_0"
+  # Flash Attention MUSS global sein, wenn der Cache quantisiert wird
+  flash-attn: true
+  chat-template: "chatml"
+  port: 8081
+  host: "0.0.0.0"
+
+# Diese Parameter werden NUR im 'serve' Modus angehängt
+serve:
+  parallel: 2
+  cont-batching: true
+  # MTP bringt bei diesem Modell nichts. Ist bereits extrem schnel:.
+  # spec-type: "draft-mtp"
+  # spec-draft-n-max: 3
+  # spec-draft-p-min: 0.75
+  jinja: true # wird auch für Qwen benötigt
+  sampling: # für Sparringspartner
+
+    temperature: 0  # ! abweichend von Model-Default (0.7)
+    # temperature: 0.7
+    presence_penalty: 1.5
+    repeat_penalty: 1.0  # ! abweichend von Model-Default (1.05)
+
+# Diese Parameter werden NUR im 'bench' Modus angehängt
+bench:
+  r: 1
+  pg:
+      - [512, 128]          # Referenz: Fast leerer Cache
+      - [32768, 128]        # Moderater Kontext
+      - [65536, 128]        # Hoher Kontext
+      - ["MAX_CONTEXT", 128] # Absolutes Limit
+eval:
+  c: 8192   # Überschreibt die common-Sektion nur für Perplexity
+  b: 512    # Sicherer Batch-Wert für die Logit-Berechnung
+  ot: null  # Zerstört die Vererbung aus 'common', Flag wird weggelassen

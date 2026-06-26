@@ -1,0 +1,4 @@
+# instances/Speedy/engines/cuda.yaml
+# NVIDIA CUDA – llama.cpp CUDA-Build für Speedy (RTX 3090)
+bin_dir: "c:\\llama-cpp\\server\\server_03_ensembles"
+

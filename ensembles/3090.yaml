@@ -1,0 +1,34 @@
+defaults:
+  engine: "cuda"  # → instances/Speedy/engines/cuda.yaml
+
+dispatcher:
+  port: 8001  # Dispatcher-Proxy-Port (Clients zeigen hierher)
+
+engine:
+  port: 8081  # llama.cpp-Server-Port (intern; Dispatcher leitet dorthin weiter)
+  host: "0.0.0.0"
+  models_max: 1
+
+model_defaults:
+  sampling:
+    temperature: 1.0
+    top_p: 0.95
+    top_k: 64
+    repeat_penalty: 1.0
+
+# Thinking on/off wird beim Client gesetzt mit dem Parameter
+# Parametername: `chat_template_kwargs`
+# value: '{"enable_thinking": false}'. Default ist true.
+
+# Rolle Sparringpartner wird ebenfalls beim Client gesetzt mit
+# Min-P: 0.1 (Schneidet unlogische Tokens ab)
+# top_p: 1.0 oder 0 (für default)
+# Mit entsprechendem System Prompt
+
+models:
+  - profile: "3090_gemma_fast_workhorse_4x64k_q8,8"
+    alias: "workhorse"
+  - profile: "3090_gemma_fast_context_king_1x262k_q8,8"
+    alias: "context_king"
+  - profile: "3090_uncensored_4x32k_q8,8"
+    alias: "uncensored"

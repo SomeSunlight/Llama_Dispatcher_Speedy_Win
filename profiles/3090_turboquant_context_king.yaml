@@ -1,0 +1,39 @@
+name: "Turboquant Context King"
+description: "256K Native Context / CPU-MoE"
+
+# Für Beschreibung Parameter siehe hier: https://github.com/ggml-org/llama.cpp/blob/master/tools/cli/README.md
+defaults:
+  model: "gemma"   # → defaults/models/gemma.yaml
+  engine: "cuda"  # → instances/<name>/engines/cuda.yaml
+
+common:
+  m: "C:\\AI_Models\\LLM\\GGUF_Raw\\gemma-4-26B-A4B-APEX-I-Compact.gguf"
+  c: 262000
+  ngl: 99
+  threads: 8
+  ot: "per_layer_token_embd\\.weight=CPU"
+  cpu-moe: false
+  cache-type-k: "turbo4"
+  cache-type-v: "turbo4"
+  # Flash Attention MUSS global sein, wenn der Cache quantisiert wird
+  flash-attn: true
+
+# Diese Parameter werden NUR im 'serve' Modus angehängt
+serve:
+  mmproj: "C:\\AI_Models\\LLM\\GGUF_Raw\\gemma-4-26B-A4B-it.mmproj-q8_0.gguf"
+  image-min-tokens: 300
+  image-max-tokens: 512
+  ubatch-size: 2048
+  batch-size: 2048
+  parallel: 1
+  cont-batching: true
+  jinja: true # wird zwingend für Gemma 4 benötigt
+
+# Diese Parameter werden NUR im 'bench' Modus angehängt
+bench:
+  pg:
+      - [512, 128]           # Referenz: Fast leerer Cache
+      - [32768, 128]         # Moderater Kontext
+      - [65536, 128]         # Hoher Kontext
+      - [131072, 128]        # Sehr hoher Kontext
+      - ["MAX_CONTEXT", 128] # Absolutes Limit. Extrem langsam. Abgebrochen.
