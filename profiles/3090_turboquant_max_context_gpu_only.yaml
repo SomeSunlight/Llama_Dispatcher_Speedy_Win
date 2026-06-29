@@ -1,7 +1,7 @@
 name: "Turboquant Context King"
 description: "Test max context size, 1 parallel, offload to ram"
 
-# Für Beschreibung Parameter siehe hier: https://github.com/ggml-org/llama.cpp/blob/master/tools/cli/README.md
+# For parameter descriptions, see here: https://github.com/ggml-org/llama.cpp/blob/master/tools/cli/README.md
 defaults:
   model: "gemma"   # → defaults/models/gemma.yaml
   engine: "cuda"  # → instances/<name>/engines/cuda.yaml
@@ -15,10 +15,10 @@ common:
   cpu-moe: false
   cache-type-k: "turbo4"
   cache-type-v: "turbo4"
-  # Flash Attention MUSS global sein, wenn der Cache quantisiert wird
+  # Flash Attention MUST be global if the cache is quantized
   flash-attn: true
 
-# Diese Parameter werden NUR im 'serve' Modus angehängt
+# These parameters are ONLY appended in 'serve' mode
 serve:
   mmproj: "C:\\AI_Models\\LLM\\GGUF_Raw\\gemma-4-26B-A4B-it.mmproj-q8_0.gguf"
   image-min-tokens: 300
@@ -27,11 +27,11 @@ serve:
   batch-size: 2048
   parallel: 1
   cont-batching: true
-  jinja: true # wird zwingend für Gemma 4 benötigt
+  jinja: true # required for Gemma 4
 
-# Diese Parameter werden NUR im 'bench' Modus angehängt
+# These parameters are ONLY appended in 'bench' mode
 bench:
-  # Test VRAM-Limit. Geht immer länger, da jedes neue Token alle bisherigen berücksichtigen muss. Bei 256K Kontext könnte das schon mal 10 Sekunden pro Token dauern, wenn die GPU an ihre Grenzen kommt.
+  # Test VRAM limit. Takes increasingly longer as each new token must consider all previous ones. At 256K context, this could take 10 seconds per token if the GPU reaches its limits.
   pp: [512, 32768, 65536, 131072, "MAX_CONTEXT"]
   tg: [128]
   t: [8]

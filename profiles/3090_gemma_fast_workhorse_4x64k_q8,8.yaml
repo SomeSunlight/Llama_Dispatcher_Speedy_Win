@@ -1,23 +1,23 @@
 name: "Normal Workhorse"
-description: "64K All-GPU Speed Profil, siehe Disk. Gemini 13.5.2026"
+description: "64K All-GPU Speed Profile, see Disk. Gemini 13.05.2026"
 
-# Für Beschreibung Parameter siehe hier: https://github.com/ggml-org/llama.cpp/blob/master/tools/cli/README.md
+# For parameter descriptions, see here: https://github.com/ggml-org/llama.cpp/blob/master/tools/cli/README.md
 defaults:
   model: "gemma"   # → defaults/models/gemma.yaml
   engine: "cuda"  # → instances/<name>/engines/cuda.yaml
 
 common:
-  m: "C:\\AI_Models\\LLM\\GGUF_Raw\\gemma-4-26B-A4B-APEX-I-Compact.gguf" # Nur 14.8 GB!
+  m: "C:\\AI_Models\\LLM\\GGUF_Raw\\gemma-4-26B-A4B-APEX-I-Compact.gguf" # Only 14.8 GB!
   # c: 131072
   c: 262144
   ngl: 99
   threads: 16
   cache-type-k: "q4_0"
   cache-type-v: "q4_0"
-  # Flash Attention MUSS global sein, wenn der Cache quantisiert wird
+  # Flash Attention MUST be global if the cache is quantized
   flash-attn: true
 
-# Diese Parameter werden NUR im 'serve' Modus angehängt
+# These parameters are ONLY appended in 'serve' mode
 serve:
   mmproj: "C:\\AI_Models\\LLM\\GGUF_Raw\\gemma-4-26B-A4B-it.mmproj-q8_0.gguf"
   image-min-tokens: 300
@@ -26,20 +26,20 @@ serve:
   batch-size: 2048
   parallel: 4
   cont-batching: true
-  jinja: true # wird zwingend für Gemma 4 benötigt
-  # falls nicht im ensemble definiert:
+  jinja: true # required for Gemma 4
+  # if not defined in ensemble:
   port: 8081
   host: "0.0.0.0"
 
-# Diese Parameter werden NUR im 'bench' Modus angehängt
+# These parameters are ONLY appended in 'bench' mode
 bench:
   r: 1
   pg:
-      - [512, 128]          # Referenz: Fast leerer Cache
-      - [32768, 128]        # Moderater Kontext
-      - [65536, 128]        # Hoher Kontext
-      - ["MAX_CONTEXT", 128] # Absolutes Limit
+      - [512, 128]          # Reference: Almost empty cache
+      - [32768, 128]        # Moderate context
+      - [65536, 128]        # High context
+      - ["MAX_CONTEXT", 128] # Absolute limit
 eval:
-  c: 8192   # Überschreibt die common-Sektion nur für Perplexity
-  b: 512    # Sicherer Batch-Wert für die Logit-Berechnung
-  ot: null  # Zerstört die Vererbung aus 'common', Flag wird weggelassen
+  c: 8192   # Overwrites the common section only for Perplexity
+  b: 512    # Safe batch value for logit calculation
+  ot: null  # Removes inheritance from 'common', flag is omitted

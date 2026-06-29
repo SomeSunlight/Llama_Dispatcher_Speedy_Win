@@ -1,7 +1,7 @@
 name: "Normal Context King"
 description: "256K Native Context / CPU-MoE"
 
-# Für Beschreibung Parameter siehe hier: https://github.com/ggml-org/llama.cpp/blob/master/tools/cli/README.md
+# For parameter descriptions, see here: https://github.com/ggml-org/llama.cpp/blob/master/tools/cli/README.md
 defaults:
   model: "gemma"   # → defaults/models/gemma.yaml
   engine: "cuda"  # → instances/<name>/engines/cuda.yaml
@@ -11,36 +11,36 @@ common:
   c: 262000
   ngl: 99
   threads: 8
-  # offloading Gewichte auf die CPU. Langsamer, dafür viel Platz für KV Cache
+  # offloading weights to the CPU. Slower, but provides much space for KV Cache
   # ot: "per_layer_token_embd\\.weight=CPU"
   # cpu-moe: true
   cache-type-k: "q8_0"
   cache-type-v: "q8_0"
-  # Flash Attention MUSS global sein, wenn der Cache quantisiert wird
+  # Flash Attention MUST be global if the cache is quantized
   flash-attn: true
 
-# Diese Parameter werden NUR im 'serve' Modus angehängt
+# These parameters are ONLY appended in 'serve' mode
 serve:
   mmproj: "C:\\AI_Models\\LLM\\GGUF_Raw\\gemma-4-26B-A4B-it.mmproj-q8_0.gguf"
   image-min-tokens: 300
   image-max-tokens: 512
   ubatch-size: 2048
   batch-size: 2048
-  parallel: 1 # ergibt max 262000 Token. Braucht einige Minuten zum einlesen.
+  parallel: 1 # results in max 262000 tokens. Takes a few minutes to load.
   cont-batching: true
-  jinja: true # wird zwingend für Gemma 4 benötigt
-  # falls nicht im ensemble definiert:
+  jinja: true # required for Gemma 4
+  # if not defined in ensemble:
   port: 8081
   host: "0.0.0.0"
-  sampling: # für Sparringspartner
+  sampling: # for Sparringpartner
 
-    min_p: 0.1  # ! abweichend von Model-Default (0.0)
-    top-p: 1.0  # ! abweichend von Model-Default (0.95)
-    top_k: 0  # ! abweichend von Model-Default (64.0)
+    min_p: 0.1  # ! deviating from Model-Default (0.0)
+    top-p: 1.0  # ! deviating from Model-Default (0.95)
+    top_k: 0  # ! deviating from Model-Default (64.0)
 
-# Diese Parameter werden NUR im 'bench' Modus angehängt
+# These parameters are ONLY appended in 'bench' mode
 bench:
-  # Test VRAM-Limit. Geht immer länger, da jedes neue Token alle bisherigen berücksichtigen muss. Bei 256K Kontext könnte das schon mal 10 Sekunden pro Token dauern, wenn die GPU an ihre Grenzen kommt.
+  # Test VRAM limit. Takes increasingly longer as each new token must consider all previous ones. At 256K context, this could take 10 seconds per token if the GPU reaches its limits.
   pp: [512, 1024, 2048, 4096, 8192, 32768, 65536, 131072, "MAX_CONTEXT"]
   tg: [128]
   t: [8]
