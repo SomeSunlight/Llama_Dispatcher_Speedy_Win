@@ -1,6 +1,5 @@
 name: "Normal Context King"
 description: "256K Native Context / CPU-MoE"
-# falls nicht definiert im ensemble
 
 # Für Beschreibung Parameter siehe hier: https://github.com/ggml-org/llama.cpp/blob/master/tools/cli/README.md
 defaults:

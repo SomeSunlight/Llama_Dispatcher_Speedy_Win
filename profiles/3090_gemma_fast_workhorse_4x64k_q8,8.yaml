@@ -12,7 +12,6 @@ common:
   c: 262144
   ngl: 99
   threads: 16
-  # Die Speicherarchitektur MUSS global gelten:
   cache-type-k: "q4_0"
   cache-type-v: "q4_0"
   # Flash Attention MUSS global sein, wenn der Cache quantisiert wird

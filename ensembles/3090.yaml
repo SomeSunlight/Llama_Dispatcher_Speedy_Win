@@ -1,3 +1,7 @@
+# start this ensemble with
+# uv run src/dispatcher.py serve --ensemble 3090 --instance Speedy
+# if needed before restart goose taskkill /F /IM goosed.exe
+
 defaults:
   engine: "cuda"  # → instances/Speedy/engines/cuda.yaml
 
@@ -9,26 +13,39 @@ engine:
   host: "0.0.0.0"
   models_max: 1
 
-model_defaults:
-  sampling:
-    temperature: 1.0
-    top_p: 0.95
-    top_k: 64
-    repeat_penalty: 1.0
-
-# Thinking on/off wird beim Client gesetzt mit dem Parameter
-# Parametername: `chat_template_kwargs`
-# value: '{"enable_thinking": false}'. Default ist true.
-
-# Rolle Sparringpartner wird ebenfalls beim Client gesetzt mit
-# Min-P: 0.1 (Schneidet unlogische Tokens ab)
-# top_p: 1.0 oder 0 (für default)
-# Mit entsprechendem System Prompt
-
 models:
-  - profile: "3090_gemma_fast_workhorse_4x64k_q8,8"
-    alias: "workhorse"
-  - profile: "3090_gemma_fast_context_king_1x262k_q8,8"
+  # ── Sparringpartner ─────────────────────────────────────────────────────────
+  # Echtes llama.cpp-Modell (belegt VRAM). Für Diskussionen, Analyse, Orchestrierung.
+  # Denkt aktiv nach bevor er antwortet (enable_thinking: true).
+  # Sampling-Defaults kommen aus dem nachfolgenden Profil selbst
+  - profile: "3090_gemma_fast_top_quality_workhorse_2x131k_q8,8"
+    alias: "sparringpartner"
+    load-on-startup: true
+    chat_template_kwargs:
+      enable_thinking: true
+
+  # ── Agent ───────────────────────────────────────────────────────────────────
+  # Proxy-only: kein eigener VRAM-Eintrag. Leitet auf "sparringpartner" weiter.
+  # Für präzise Auftragsausführung: kein Denken, tiefe Temperatur, fokussiertes Sampling.
+  # Der Proxy übersetzt "model: agent" → "model: sparringpartner" und injiziert
+  # die untenstehenden Parameter in jeden Request – einheitlich für alle Clients.
+  - profile: "3090_gemma_fast_top_quality_workhorse_2x131k_q8,8"
+    alias: "agent"
+    target: "sparringpartner"
+    chat_template_kwargs:
+      enable_thinking: false
+    sampling:
+      temperature: 0.3   # präzise, wenig Zufall
+      top_k: 20          # nur die 20 wahrscheinlichsten Token
+      top_p: 0.9
+      min_p: 0.1         # schneidet unwahrscheinliche Token hart ab
+      repeat_penalty: 1.1  # verhindert Wiederholungen bei langen Aufträgen
+
+  # ── Für einmalige Analysen, entläd das obere Modell, falls im Einsatz ─────────────────
+  - profile: "3090_gemma_fast_top_quality_context_king_1x262k_q8,8"
     alias: "context_king"
+
+  # ── Für einmalige uncensored Abklärungen ──────────────────────────────────────────────
+
   - profile: "3090_uncensored_4x32k_q8,8"
     alias: "uncensored"
