@@ -8,7 +8,7 @@ defaults:
 
 common:
   m: "C:\\AI_Models\\LLM\\GGUF_Raw\\Gemma4-26B-A4B-Uncensored-HauhauCS-Balanced-Q4_K_P.gguf"
-  c: 131072
+  c: 262000
   ngl: 99
   threads: 16
   # The memory architecture MUST be global:
@@ -24,7 +24,7 @@ serve:
   image-max-tokens: 512
   ubatch-size: 2048
   batch-size: 2048
-  parallel: 4 # results in max 32768 tokens
+  parallel: 1
   cont-batching: true
   jinja: true # required for Gemma 4
 

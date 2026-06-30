@@ -1,4 +1,4 @@
 # engines/cuda_turboquant.yaml
 # Machine-specific – adjust bin_dir after every llama.cpp update.
 # See concept in defaults/engine-templates/README.md
-bin_dir: "c:\llama-cpp\server\server_02_turboquant_spiritbun"
+bin_dir: 'c:\llama-cpp\server\server_02_turboquant_spiritbun'

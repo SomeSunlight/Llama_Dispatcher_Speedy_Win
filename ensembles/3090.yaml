@@ -47,5 +47,8 @@ models:
 
   # ── For one-time uncensored investigations ──────────────────────────────────────────────
 
-  - profile: "3090_uncensored_4x32k_q8,8"
+  - profile: "3090_uncensored_1x262k_q8,8"
     alias: "uncensored"
+    chat_template_kwargs:
+      enable_thinking: true
+
