@@ -6,7 +6,7 @@ defaults:
   engine: "cuda"  # → instances/<name>/engines/cuda.yaml
 
 common:
-  m: "C:\\AI_Models\\LLM\\GGUF_Raw\\Qwen3.6-35B-A3B-Claude-4.7-Opus-Reasoning-Distilled-APEX-MTP-I-Compact.gguf"
+  m: "${LLAMA_MODEL_ROOT}/Qwen3.6-35B-A3B-Claude-4.7-Opus-Reasoning-Distilled-APEX-MTP-I-Compact.gguf"
   c: 131072
   ngl: 99
   # Never use more threads than the CPU has

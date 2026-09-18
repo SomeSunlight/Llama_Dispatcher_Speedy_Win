@@ -1,9 +1,9 @@
 # start this ensemble with
-# uv run src/dispatcher.py serve --ensemble 3090 --instance Speedy
+# uv run src/dispatcher.py serve --ensemble 3090 --instance Speedy_Win
 # if needed before restart goose taskkill /F /IM goosed.exe
 
 defaults:
-  engine: "cuda"  # → instances/Speedy/engines/cuda.yaml
+  engine: "cuda"  # → instances/Speedy_Win/engines/cuda.yaml
 
 dispatcher:
   port: 8001  # Dispatcher-Proxy port (clients point here)
