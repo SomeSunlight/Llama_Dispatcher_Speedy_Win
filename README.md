@@ -1,6 +1,6 @@
 # Llama_Dispatcher – Instance: Speedy
 
-This private repository contains the machine-specific configuration of the **Speedy** instance
+This repository contains the machine-specific configuration of the **Speedy** instance
 for [Llama_Dispatcher](https://github.com/SomeSunlight/Llama_Dispatcher).
 
 ## Content
