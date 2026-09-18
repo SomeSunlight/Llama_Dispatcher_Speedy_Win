@@ -7,7 +7,7 @@ defaults:
   engine: "cuda"  # → instances/<name>/engines/cuda.yaml
 
 common:
-  m: "C:\\AI_Models\\LLM\\GGUF_Raw\\Gemma4-26B-A4B-Uncensored-HauhauCS-Balanced-Q4_K_P.gguf"
+  m: "${LLAMA_MODEL_ROOT}/Gemma4-26B-A4B-Uncensored-HauhauCS-Balanced-Q4_K_P.gguf"
   c: 262000
   ngl: 99
   threads: 16
@@ -19,7 +19,7 @@ common:
 
 # These parameters are ONLY appended in 'serve' mode
 serve:
-  mmproj: "C:\\AI_Models\\LLM\\GGUF_Raw\\mmproj-BF16-Halfcy.gguf"
+  mmproj: "${LLAMA_MODEL_ROOT}/mmproj-BF16-Halfcy.gguf"
   image-min-tokens: 300
   image-max-tokens: 512
   ubatch-size: 2048
