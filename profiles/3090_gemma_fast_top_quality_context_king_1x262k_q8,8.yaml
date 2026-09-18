@@ -7,7 +7,7 @@ defaults:
   engine: "cuda"  # → instances/<name>/engines/cuda.yaml
 
 common:
-  m: "C:\\AI_Models\\LLM\\GGUF_Raw\\gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf" # Only 14.2 GB with almost no quantization errors!
+  m: "${LLAMA_MODEL_ROOT}/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf" # Only 14.2 GB with almost no quantization errors!
   c: 262000
   ngl: 99
   threads: 16
@@ -19,7 +19,7 @@ common:
 
 # These parameters are ONLY appended in 'serve' mode
 serve:
-  # mmproj: "C:\\AI_Models\\LLM\\GGUF_Raw\\mmproj-F16-qat.gguf"
+  # mmproj: "${LLAMA_MODEL_ROOT}/mmproj-F16-qat.gguf"
   image-min-tokens: 300
   image-max-tokens: 512
   ubatch-size: 2048
