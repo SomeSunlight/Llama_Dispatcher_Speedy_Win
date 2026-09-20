@@ -1,9 +1,12 @@
-﻿# SQLite WAL-Dateien
+# Dispatcher runtime data (environment-local)
+data/
 *.db-shm
 *.db-wal
+
 # OS
 .DS_Store
 Thumbs.db
+
 # IDEs
 .idea/
 .vscode/

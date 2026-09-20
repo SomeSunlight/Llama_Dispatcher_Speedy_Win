@@ -11,8 +11,9 @@ for [Llama_Dispatcher](https://github.com/SomeSunlight/Llama_Dispatcher).
 | `profiles/` | YAML profiles (llama.cpp startup parameters) for this machine |
 | `ensembles/` | YAML ensembles (combinations of multiple profiles) |
 | `engines/` | Engine configuration (CUDA) |
-| `data/metrics.db` | SQLite database with benchmark and runtime metrics |
-| `data/3090_models.ini` | Model preset file for llama-server (Multi-Model-Router) |
+| `data/` | Environment-local Dispatcher runtime data; generated files are not versioned |
+
+Runtime-generated router presets, metrics databases and SQLite sidecar files under `data/` are recreated locally and intentionally excluded from Git.
 
 ## Associated Dispatcher
 
