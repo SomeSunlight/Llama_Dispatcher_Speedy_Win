@@ -7,7 +7,7 @@ defaults:
   engine: "cuda"  # → instances/<name>/engines/cuda.yaml
 
 common:
-  m: "C:\\AI_Models\\LLM\\GGUF_Raw\\Qwen3.6-27B-Omnimerge-v4-Q4_K_M.gguf"
+  m: "${LLAMA_MODEL_ROOT}/Qwen3.6-27B-Omnimerge-v4-Q4_K_M.gguf"
   c: 131072
   ngl: 99
   # Never use more threads than the CPU has
