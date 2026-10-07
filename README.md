@@ -10,10 +10,13 @@ The corresponding WSL runtime is intentionally a separate instance/repository
 
 | Directory / File | Description |
 |---|---|
-| `instance.yaml` | Machine GUID and nickname of this Windows instance |
-| `profiles/` | YAML profiles with model-relative paths and llama.cpp parameters |
-| `ensembles/` | Model/alias compositions |
-| `engines/` | Windows CUDA engine defaults |
+| `instance.yaml` | Machine-GUID and nickname of this instance |
+| `profiles/` | YAML profiles (llama.cpp startup parameters) for this machine |
+| `ensembles/` | YAML ensembles (combinations of multiple profiles) |
+| `engines/` | Engine configuration (CUDA) |
+| `data/` | Environment-local Dispatcher runtime data; generated files are not versioned |
+
+Runtime-generated router presets, metrics databases and SQLite sidecar files under `data/` are recreated locally and intentionally excluded from Git.
 
 Runtime-generated data does **not** belong to the versioned instance configuration:
 

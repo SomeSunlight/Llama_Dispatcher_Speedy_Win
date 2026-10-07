@@ -1,7 +1,5 @@
 # Dispatcher runtime data (environment-local)
-data/metrics.db
-data/metrics_empty.db
-data/3090_models.ini
+data/
 *.db-shm
 *.db-wal
 
