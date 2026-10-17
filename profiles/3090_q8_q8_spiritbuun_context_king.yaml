@@ -7,7 +7,7 @@ defaults:
   engine: "cuda"  # → instances/<name>/engines/cuda.yaml
 
 common:
-  m: "${LLAMA_MODEL_ROOT}/gemma-4-26B-A4B-APEX-I-Compact.gguf"
+  m: "${LLAMA_MODEL_ROOT}/gemma-4-26B-A4B-it-qat-UD-Q4_K_XL.gguf"
   c: 131072
   ngl: 99
   threads: 16

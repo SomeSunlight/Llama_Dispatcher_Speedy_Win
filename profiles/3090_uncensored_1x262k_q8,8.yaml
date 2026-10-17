@@ -19,7 +19,7 @@ common:
 
 # These parameters are ONLY appended in 'serve' mode
 serve:
-  mmproj: "${LLAMA_MODEL_ROOT}/mmproj-BF16-Halfcy.gguf"
+  mmproj: "${LLAMA_MODEL_ROOT}/mmproj-Gemma4-26B-A4B-QAT-Uncensored-HauhauCS-Balanced-BF16.gguf"  // downloaded for above
   image-min-tokens: 300
   image-max-tokens: 512
   ubatch-size: 2048
